@@ -7,7 +7,8 @@
       "Bash(git config:*)",
       "Bash(npm run compile:*)",
       "Bash(npm run package:*)",
-      "Bash(code:*)"
+      "Bash(code:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []

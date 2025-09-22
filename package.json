@@ -4,6 +4,14 @@
   "description": "Open Parquet files in a tabular format inside VSCode",
   "version": "0.0.1",
   "publisher": "your-name",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RajarsiGit/parquet-viewer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RajarsiGit/parquet-viewer/issues"
+  },
+  "homepage": "https://github.com/RajarsiGit/parquet-viewer#readme",
   "engines": {
     "vscode": "^1.85.0"
   },

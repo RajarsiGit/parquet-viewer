@@ -1,0 +1,68 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile TypeScript
+        run: npm run compile
+
+      - name: Package extension
+        run: npm run package
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            *.vsix
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body: |
+            ## Changes in ${{ github.ref_name }}
+
+            - Automated release of Parquet Viewer extension
+            - Download the `.vsix` file to install in VS Code
+
+            ### Installation
+            1. Download `parquet-viewer-${{ steps.get_version.outputs.VERSION }}.vsix`
+            2. In VS Code: `Ctrl+Shift+P` → "Extensions: Install from VSIX..."
+            3. Select the downloaded file
+
+            ### Usage
+            - Right-click any `.parquet` file → "Open Parquet File"
+            - Or use Command Palette: "Open Parquet File"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload VSIX as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: parquet-viewer-${{ steps.get_version.outputs.VERSION }}
+          path: "*.vsix"
+          retention-days: 90
