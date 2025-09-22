@@ -1,0 +1,49 @@
+{
+  "name": "parquet-viewer",
+  "displayName": "Parquet Viewer",
+  "description": "Open Parquet files in a tabular format inside VSCode",
+  "version": "0.0.1",
+  "publisher": "your-name",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:parquetViewer.open"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "parquetViewer.open",
+        "title": "Open Parquet File"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "parquetViewer.open",
+          "when": "resourceExtname == .parquet",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.0.0",
+    "vsce": "^2.15.0"
+  },
+  "dependencies": {
+    "parquetjs-lite": "^0.8.7"
+  }
+}
