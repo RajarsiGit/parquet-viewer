@@ -2,7 +2,7 @@
   "name": "parquet-viewer",
   "displayName": "Parquet Viewer",
   "description": "Open Parquet files in a tabular format inside VSCode",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "RajarsiGit",
   "repository": {
     "type": "git",
